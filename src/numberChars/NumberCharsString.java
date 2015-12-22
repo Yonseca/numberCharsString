@@ -14,8 +14,16 @@ import java.util.Optional;
 public class NumberCharsString {
 
 	
-	static char[] charsString = new char[16];
-	static char[] startCharsString = new char[16];
+	private char[] charsString = new char[16];
+	private char[] startCharsString = new char[16];
+
+	public char[] getCharsString() {
+		return charsString;
+	}
+
+	public char[] getStartCharsString() {
+		return startCharsString;
+	}
 
 	/**
 	 * Constructor for NumberCharsString. 
@@ -23,17 +31,17 @@ public class NumberCharsString {
 	 * If it's longer, it'll truncate to 16. If sorter, will be considered as
 	 * non-valid and be replaced with "aaaaaaaaaaaaaaaa". 
 	 */
-	public NumberCharsString(Optional<String> charsString) {
-		if (charsString.isPresent() && charsString.get().length() >= 16) {
-			
-			NumberCharsString.charsString = Arrays.copyOfRange(charsString
-					.get().toCharArray(), 0,
-					NumberCharsString.charsString.length);
-			
+	public NumberCharsString(String charsString) {
+		if (charsString.length() >= 16) {
+
+			for (int i = 0; i < this.charsString.length; i++) {
+				this.charsString[i] = charsString.charAt(i);
+			}
+
 		} else { // No String or non-valid.
-			Arrays.fill(NumberCharsString.charsString, 'a');
+			Arrays.fill(this.charsString, 'a');
 		}
-		startCharsString = Arrays.copyOf(NumberCharsString.charsString,
+		startCharsString = Arrays.copyOf(this.charsString,
 				startCharsString.length);
 	}
 
@@ -43,16 +51,16 @@ public class NumberCharsString {
 	 * @return String 
 	 */
 	public String next() {
-		updateLink();
+		update();
 		return Arrays.toString(charsString);
 	}
 
 	/**
-	 * Updates the link. Every letter will go through a to z, and 0 to 9. 
+	 * Updates the string. Every letter will go through a to z, and 0 to 9. 
 	 * This will update every character in order to create all possible
 	 * combinations. 
 	 */
-	private void updateLink(){
+	private void update(){
 		int pos = charsString.length-1;
 		boolean update = false; 
 		
@@ -60,8 +68,7 @@ public class NumberCharsString {
 			charsString[pos] = nextChar(charsString[pos]);
 			update = (charsString[pos] == 'a');
 			if(update) --pos;
-		}while (update);
-		
+		}while (update && pos >= 0);
 	}
 	
 	/**
@@ -75,7 +82,7 @@ public class NumberCharsString {
 		} else if(character == '9'){
 			return 'a';
 		} else {
-			return character++;
+			return ++character;
 		}
 	}
 
