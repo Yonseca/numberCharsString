@@ -10,18 +10,12 @@ import java.util.Arrays;
 import numberChars.NumberCharsString;
 
 import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author yonseca
  *
  */
 public class numberCharsStringNext {
-	
-	@Test
-	public void testSiempreTrue(){
-		assertTrue(true);
-	}
 
 	@Test
 	public void testAaaaaaaaaaaaaaaa_goes_aaaaaaaaaaaaaab() {
@@ -53,6 +47,17 @@ public class numberCharsStringNext {
 		cadenaPrueba.next();
 		assertArrayEquals(testString, cadenaPrueba.getCharsString());
 	}
+	
+	@Test
+	public void testAaaaaaaaaaaaaa99_goes_aaaaaaaaaaaabaa() {
+		char[] testString = new char[16];
+		Arrays.fill(testString , 'a');
+		testString[testString.length-3] = 'b';
+		NumberCharsString cadenaPrueba = new NumberCharsString("aaaaaaaaaaaaaa99");
+		cadenaPrueba.next();
+		assertArrayEquals(testString, cadenaPrueba.getCharsString());
+	}
+	
 	
 
 

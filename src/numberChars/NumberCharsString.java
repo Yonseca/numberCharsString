@@ -52,7 +52,7 @@ public class NumberCharsString {
 	 */
 	public String next() {
 		update();
-		return Arrays.toString(charsString);
+		return String.valueOf(charsString);
 	}
 
 	/**
